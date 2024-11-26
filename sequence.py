@@ -13,25 +13,17 @@ class sequence :
         self.bias=bias
 
         self.epoch = epoch
-    def build_layers(self,layers):
-        
-        # form GUI take units and activation
-        
+    def build_layers(self, layers):
+        input_size = 5  # Default input size; replace with actual dataset features if dynamic
+        for i in range(self.num_of_layers):
+            if i == 0:
+                self.layers.append(Layer(layers[i], self.activation, self.l_r, input_size))
+            else:
+                self.layers.append(Layer(layers[i], self.activation, self.l_r, layers[i-1]))
 
-        for i in range(self.num_of_layers-1):
-          if i!=0:
-            previous_layer = self.layers[i-1]
-            self.layers.append(Layer(layers[i] , self.activation ,self.l_r, len(previous_layer.a_out)))
-          else:
-            self.layers.append(Layer(layers[i] , self.activation ,self.l_r, 5))
-  
+        # Add final output layer with 3 classes
+        self.layers.append(Layer(3, self.activation, self.l_r, layers[-1]))
 
-
-        if len(self.layers) !=0:
-         previous_layer = self.layers[i-1]
-         self.layers.append(Layer(3, self.activation ,self.l_r,len(previous_layer.a_out)))
-        else:
-          self.layers.append(Layer(3, self.activation , self.l_r,5))
 
 
     
@@ -78,14 +70,14 @@ class sequence :
    
 
     def forward_propagation(self, sample):
-        self.layers[0].a_out=np.matmul(sample,self.layers[0].W.T)
+        self.layers[0].a_out=np.dot(sample,self.layers[0].W.T)
         if self.bias:
             self.layers[0].a_out+=self.layers[0].bias
            
         self.layers[0].a_out=self.layers[0].a_out = [
                 self.layers[0].activation(x, h) for h, x in enumerate(self.layers[0].a_out)]
         for i in range(1,len(self.layers)):
-            self.layers[i].a_out=np.matmul(self.layers[i-1].a_out,self.layers[i].W.T)
+            self.layers[i].a_out=np.dot(self.layers[i-1].a_out,self.layers[i].W.T)
             if self.bias:
              self.layers[i].a_out+=self.layers[i].bias
 
@@ -178,7 +170,6 @@ class sequence :
       for i in range(len(real)):
          predicted_class = pred[i]
          true_class = np.argmax(real[i])
-         print(predicted_class,true_class)
 
          conf_mat[true_class][predicted_class]+=1
                       
