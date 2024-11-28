@@ -8,7 +8,7 @@ class Layer:
         self.weights_num = weight_num
         self.differentiating = np.zeros(self.neurons)
 
-        self.W = np.random.uniform(low=-2.0, high=2.0, size=(self.neurons, self.weights_num))
+        self.W = np.random.uniform(low=-1.0, high=1.0, size=(self.neurons, self.weights_num))
 
         self.bias = np.zeros(self.neurons)
 

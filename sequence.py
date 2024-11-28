@@ -14,14 +14,13 @@ class sequence :
 
         self.epoch = epoch
     def build_layers(self, layers):
-        input_size = 5  # Default input size; replace with actual dataset features if dynamic
+        input_size = 5 
         for i in range(self.num_of_layers):
             if i == 0:
                 self.layers.append(Layer(layers[i], self.activation, self.l_r, input_size))
             else:
                 self.layers.append(Layer(layers[i], self.activation, self.l_r, layers[i-1]))
 
-        # Add final output layer with 3 classes
         self.layers.append(Layer(3, self.activation, self.l_r, layers[-1]))
 
 
