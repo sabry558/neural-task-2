@@ -85,11 +85,15 @@ root.geometry("720x480")
 
 
 
+<<<<<<< HEAD
 fig, ax = plt.subplots()
 fig.set_size_inches(6, 5)
 canvas = FigureCanvasTkAgg(master=root, figure=fig)
 # plot = canvas.get_tk_widget()
 # plot.place(x=900, y=20)
+=======
+
+>>>>>>> d24b9cd6edffb638beff593b992ec9e26b00fae9
 epochs_entry = ctk.CTkEntry(root, placeholder_text='epochs')
 epochs_entry.place(x=10, y=10)
 
