@@ -113,7 +113,7 @@ class sequence :
       X=self.data.iloc[:,0:5]
       Y=self.data.iloc[:,5:]
 
-      x_train,x_test,y_train,y_test=train_test_split(X,Y,test_size=0.4,stratify=Y,shuffle=True)
+      x_train,x_test,y_train,y_test=train_test_split(X,Y,test_size=0.4,stratify=Y,random_state=42)
       return x_train,x_test,y_train,y_test
     
 
