@@ -51,8 +51,8 @@ def predict_out():
     seq=sequence(int(layers),int(epochs),float(lr),activation_choice.get(),bias=bias_check.get() == 1)
     seq.build_layers(layers_list)
     test_Acc,train_acc,conf=seq.train()
-    test_acc_label.configure(text_color="green", text="test Accuracy :"+str(test_Acc))
-    train_acc_label.configure(text_color="green", text="train Accuracy :"+str(train_acc))
+    test_acc_label.configure(text_color="green", text="test Accuracy :"+str(round(test_Acc,3)))
+    train_acc_label.configure(text_color="green", text="train Accuracy :"+str(round(train_acc,3)))
     plot_confusion_matrix(conf)
 
 
@@ -74,7 +74,7 @@ def plot_confusion_matrix(confusion):
     canvas = FigureCanvasTkAgg(fig, master=root)  
     canvas.draw()
 
-    canvas.get_tk_widget().place(x=250, y=100)
+    canvas.get_tk_widget().place(x=350, y=150)
 
 root = tk.Tk()
 root.configure(bg="#2E2E2E")
@@ -88,8 +88,8 @@ root.geometry("720x480")
 fig, ax = plt.subplots()
 fig.set_size_inches(6, 5)
 canvas = FigureCanvasTkAgg(master=root, figure=fig)
-plot = canvas.get_tk_widget()
-plot.place(x=800, y=10)
+# plot = canvas.get_tk_widget()
+# plot.place(x=900, y=20)
 epochs_entry = ctk.CTkEntry(root, placeholder_text='epochs')
 epochs_entry.place(x=10, y=10)
 
@@ -101,6 +101,9 @@ num_layer.place(x=200, y=10)
 
 neurons_per_layer = ctk.CTkEntry(root, placeholder_text='neurons/Layer')
 neurons_per_layer.place(x=200, y=60)
+
+example = ctk.CTkLabel(root , text='<------ex\n2 layers=> 3,4\n3 layers=> 7,8,6' , text_color='yellow')
+example.place(x=340 ,y=70)
 
 activation_choice = tk.StringVar(value="")
 sigmoid = ctk.CTkRadioButton(root, text="sigmoid", variable=activation_choice, value="sigmoid")
